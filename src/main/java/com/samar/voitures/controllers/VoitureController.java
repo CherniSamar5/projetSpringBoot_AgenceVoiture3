@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.samar.voitures.entities.Marque;
 import com.samar.voitures.entities.Voiture;
@@ -39,29 +40,32 @@ public class VoitureController {
 		modelMap.addAttribute("marques", marques);
 		modelMap.addAttribute("voiture", new Voiture());
 		modelMap.addAttribute("mode", "new");
-
+        modelMap.addAttribute("page",0);
 	return "formVoiture";
 	}
 
-//	public String showCreate(ModelMap modelMap)
-//	{
-//		List<Marque> marques = marqueService.getAllMarque();
-//		modelMap.addAttribute("marques", marques);
-//		return "createVoiture";
-//	}
+
 	
 
 	
 	@RequestMapping("/saveVoiture")
 	public String saveVoiture(@Valid Voiture voiture,
-			 BindingResult bindingResult ,ModelMap modelMap)
-	{
+			 BindingResult bindingResult ,ModelMap modelMap, @ModelAttribute("page") int  pageFromPrevious,
+			    @RequestParam (name="size", defaultValue = "2") int size,
+			    RedirectAttributes redirectAttributes)
+	{	
+		int page;
 		List<Marque> marques = marqueService.getAllMarque();
 		modelMap.addAttribute("marques", marques);
 		if (bindingResult.hasErrors()) return "formVoiture";
-
+		  if (voiture.getIdVoiture()==null) {
+			  page = voitureService.getAllVoitures().size()/size;
+		  }else {
+			  page = pageFromPrevious;
+		  }
 		voitureService.saveVoiture(voiture);
-		return "formVoiture";
+		redirectAttributes.addAttribute("page", pageFromPrevious);
+		return "redirect:/ListeVoitures";
 	}
 //	public String saveVoiture(@ModelAttribute("voiture") Voiture voiture, @RequestParam("date") String date,
 //			ModelMap modelMap,
@@ -112,28 +116,20 @@ public class VoitureController {
 		return "listeVoitures";
 	}
 	@RequestMapping("/modifierVoiture")
-	public String editerProduit(@RequestParam("id") Long id,ModelMap modelMap)
+	public String editerProduit(@RequestParam("id") Long id,@RequestParam("page") int page,ModelMap modelMap)
 	{
 		List<Marque> marqs = marqueService.getAllMarque();
+		  System.out.println(page);
+
 	modelMap.addAttribute("marques",marqs);
 	Voiture v= voitureService.getVoiture(id);
 	modelMap.addAttribute("voiture", v);
 	modelMap.addAttribute("mode", "edit");
+	modelMap.addAttribute("page",page);
 	return "formVoiture";
 	}
 
-//	public String editerVoiture(@RequestParam("id") Long id,ModelMap modelMap  
-//			//,@RequestParam("page") int page
-//			)
-//	{
-//		Voiture v= 	voitureService.getVoiture(id);
-//		modelMap.addAttribute("voiture", v);	
-//		List<Marque> marqs = marqueService.getAllMarque();
-//		modelMap.addAttribute("marques",marqs);
-//		//modelMap.addAttribute("currentPage",page);
-//
-//		return "editerVoiture";	
-//	}
+
 	@RequestMapping("/updateVoiture")
 	public String updateVoiture(@ModelAttribute("voiture") Voiture voiture,
 								@RequestParam("date") String date,

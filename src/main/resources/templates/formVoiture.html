@@ -23,10 +23,12 @@ src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
  <div class="card-header" th:if="${mode=='edit'}">Modification des Voitures
 </div>
 <div class="card-body">
-<form th:action="@{saveVoiture}" method="post">
+<form th:action="@{saveVoiture(page=${page})}" method="post">
 	<div class="form-group">
 <label class="control-label" hidden>ID Voiture :</label>
 <input type="hidden" name="idVoiture" class="form-control" th:value="${voiture.idVoiture}" />
+<label class="control-label">page : </label>
+ <input type="text" name="page"  th:value="${page}"/>
  </div>
  <div class="form-group">
  <label class="control-label">Nom Voiture :</label>
