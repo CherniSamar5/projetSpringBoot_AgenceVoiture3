@@ -19,7 +19,7 @@ src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<div layout:fragment="Mycontent">
 <div class="container mt-5" >
 <div class="card-body">
-<form action="updateMarque" method="post">
+<form th:action="@{updateMarque}" method="post">
 	 <div class="form-group">
  
  <input type="text" th:field="${marque.idMarque}" name="idMarque" class="form-control" hidden/>

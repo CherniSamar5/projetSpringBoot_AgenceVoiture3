@@ -34,7 +34,7 @@ public class VoitureController {
 	MarqueService marqueService;
 	
 	@RequestMapping("/showCreateVoiture")
-	public String showCreate(ModelMap modelMap)
+	public String showCreateVoiture(ModelMap modelMap)
 	{
 		List<Marque> marques = marqueService.getAllMarque();
 		modelMap.addAttribute("marques", marques);

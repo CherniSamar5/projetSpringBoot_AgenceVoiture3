@@ -19,23 +19,23 @@ src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<div layout:fragment="Mycontent">
 <div class="container mt-5" >
 <div class="card-body">
-<form th:action="@{updateMarque}" method="post">
-	 <div class="form-group">
- 
- <input type="text" th:field="${marque.idMarque}" name="idMarque" class="form-control" hidden/>
- </div>
+<form th:action="@{saveMarque}" method="post">
  <div class="form-group">
  <label class="control-label">Nom Marque :</label>
- <input type="text" th:field="${marque.nomMarque}" name="nomMarque" class="form-control"/>
+ <input type="text" name="nomMarque" class="form-control" th:value="${marque.nomMarque}" />
+ <span th:errors= ${marque.nomMarque} class="text-danger"> </span>
+
  </div>
  <div class="form-group">
  <label class="control-label">Description Marque :</label>
- <input type="text" th:field="${marque.descriptionMarque}" name="descriptionMarque" class="form-control"/>
+ <input type="text" name="descriptionMarque" class="form-control" th:value="${marque.descriptionMarque}" />
+ <span th:errors=${marque.descriptionMarque} class="text-danger"> </span>
+
  </div>
 
 
  <div>
- <button type="submit" class="btn btn-primary"> Editer </button>
+ <button type="submit" class="btn btn-primary">Ajouter</button>
 </div>
 </form>
 </div>

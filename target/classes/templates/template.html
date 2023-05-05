@@ -38,7 +38,7 @@
                 Marques
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{showCreateMarque}">Ajouter</a>
+                <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{showCreateMarque}">Ajouter</a>
                 <a class="dropdown-item" th:href="@{ListeMarques}">Lister</a>
             </div>
         </li>

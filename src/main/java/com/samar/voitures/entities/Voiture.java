@@ -25,7 +25,7 @@ public class Voiture {
 	
 	
 	@NotNull
-	@Size (min = 4,max = 15)
+	@Size (min = 2,max = 15)
 	private String modeleVoiture;
 	
 	@Min(value = 10)
