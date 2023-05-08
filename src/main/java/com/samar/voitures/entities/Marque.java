@@ -27,11 +27,11 @@ public class Marque {
 	private Long idMarque;
 	
 	@NotNull
-	@Size (min = 4,max = 15)
+	@Size (min = 3,max = 15)
 	private String nomMarque;
 	
 	
-	@Size (min = 4,max = 60)
+	@Size (min = 4,max = 100)
 	private String descriptionMarque;
 	
 	@JsonIgnore
